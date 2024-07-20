@@ -382,10 +382,10 @@ function(assign_recursive_verifier target curve_type provers_amount)
         crypto3::hash
         crypto3::kdf
         crypto3::mac
-        marshalling::core
-        marshalling::crypto3_algebra
-        marshalling::crypto3_multiprecision
-        marshalling::crypto3_zk
+        crypto3::marshalling-core
+        crypto3::marshalling-algebra
+        crypto3::marshalling-multiprecision
+        crypto3::marshalling-zk
         crypto3::math
         crypto3::modes
         crypto3::multiprecision
