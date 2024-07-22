@@ -15,8 +15,8 @@ cmake_policy(SET CMP0057 NEW)
 cmake_policy(SET CMP0063 NEW)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake"
-     "${CMAKE_CURRENT_LIST_DIR}/cmake/packages"
-     "${CMAKE_CURRENT_LIST_DIR}/cmake/modules/share/modules/cmake")
+        "${CMAKE_CURRENT_LIST_DIR}/cmake/packages"
+        "${CMAKE_CURRENT_LIST_DIR}/cmake/modules/share/modules/cmake")
 
 include(CMConfig)
 include(CMSetupVersion)
@@ -86,7 +86,7 @@ add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/libs/circifier/llvm")
 
 add_subdirectory(examples)
 if(BUILD_TESTS)
-  add_subdirectory(tests)
+    add_subdirectory(tests)
 endif()
 
 add_subdirectory(libs/stdlib)
@@ -97,9 +97,9 @@ find_package(Git REQUIRED)
 
 if(NOT ZKLLVM_VERSION)
     execute_process(COMMAND ${GIT_EXECUTABLE} describe --tags HEAD
-                    OUTPUT_VARIABLE DESCRIBE_OUTBUT
-                    OUTPUT_STRIP_TRAILING_WHITESPACE
-                    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
+            OUTPUT_VARIABLE DESCRIBE_OUTBUT
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+            WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
 
     if(NOT ("${DESCRIBE_OUTBUT}" STREQUAL "${ZKLLVM_VERSION}"))
         set(ZKLLVM_VERSION "${DESCRIBE_OUTBUT}")
@@ -138,9 +138,9 @@ endif()
 set(CPACK_PACKAGING_INSTALL_PREFIX "/usr/lib/zkllvm")
 
 configure_file("${CMAKE_CURRENT_LIST_DIR}/cmake/zkllvm.conf.in"
-               "${CMAKE_CURRENT_BINARY_DIR}/zkllvm.conf"
-               NO_SOURCE_PERMISSIONS
-               @ONLY)
+        "${CMAKE_CURRENT_BINARY_DIR}/zkllvm.conf"
+        NO_SOURCE_PERMISSIONS
+        @ONLY)
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/zkllvm.conf" DESTINATION /etc/ld.so.conf.d)
 
 set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_LIST_DIR}/cmake/triggers")
@@ -154,12 +154,10 @@ add_subdirectory("${CMAKE_CURRENT_LIST_DIR}/bin")
 
 find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
-message(STATUS "Configuring rslang")
-
 execute_process(COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_LIST_DIR}/detect-platform.py
-                RESULT_VARIABLE DETECT_PLATFORM_RESULT
-                OUTPUT_VARIABLE RUSTC_HOST_TRIPLE
-                OUTPUT_STRIP_TRAILING_WHITESPACE)
+        RESULT_VARIABLE DETECT_PLATFORM_RESULT
+        OUTPUT_VARIABLE RUSTC_HOST_TRIPLE
+        OUTPUT_STRIP_TRAILING_WHITESPACE)
 
 if(NOT ${DETECT_PLATFORM_RESULT} EQUAL 0)
     message(FATAL_ERROR "Failed to detect host platform")
@@ -197,25 +195,25 @@ list(APPEND RSLANG_BUILD_ARGS --disable-docs)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libs/rslang)
 file(REMOVE ${RSLANG_CONFIG})
 execute_process(COMMAND ${CMAKE_CURRENT_LIST_DIR}/libs/rslang/configure ${RSLANG_BUILD_ARGS}
-                COMMAND_ERROR_IS_FATAL ANY
-                WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libs/rslang)
+        COMMAND_ERROR_IS_FATAL ANY
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libs/rslang)
 
 add_custom_target(cargo
-                  COMMAND cargo build --release --target-dir ${CMAKE_CURRENT_BINARY_DIR}/libs/rslang/target
-                  COMMENT "Building cargo"
-                  USES_TERMINAL
-                  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/libs/rslang/src/tools/cargo)
+        COMMAND cargo build --release --target-dir ${CMAKE_CURRENT_BINARY_DIR}/libs/rslang/target
+        COMMENT "Building cargo"
+        USES_TERMINAL
+        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/libs/rslang/src/tools/cargo)
 
 add_custom_target(rslang
-                  COMMAND ./x build --config ${RSLANG_CONFIG}
-                  DEPENDS llvm-libraries llvm-config llvm-link FileCheck cargo
-                  COMMENT "Building rslang"
-                  USES_TERMINAL
-                  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/libs/rslang)
+        COMMAND ./x build --config ${RSLANG_CONFIG}
+        DEPENDS llvm-libraries llvm-config llvm-link FileCheck cargo
+        COMMENT "Building rslang"
+        USES_TERMINAL
+        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/libs/rslang)
 
 add_custom_target(rslang_dist
-                  COMMAND ./x dist --config ${RSLANG_CONFIG}
-                  DEPENDS rslang
-                  COMMENT "Building rslang distribution package"
-                  USES_TERMINAL
-                  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/libs/rslang)
+        COMMAND ./x dist --config ${RSLANG_CONFIG}
+        DEPENDS rslang
+        COMMENT "Building rslang distribution package"
+        USES_TERMINAL
+        WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/libs/rslang)

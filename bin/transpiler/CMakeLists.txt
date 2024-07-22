@@ -84,4 +84,12 @@ elseif(CMAKE_CROSSCOMPILING AND CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
     add_dependencies(${CURRENT_PROJECT_NAME} boost)
 endif()
 
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    target_compile_options(${CURRENT_PROJECT_NAME} PRIVATE "-fconstexpr-steps=2147483647")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    target_compile_options(${CURRENT_PROJECT_NAME} PRIVATE "-fconstexpr-ops-limit=4294967295")
+endif()
+
+target_compile_options(${CURRENT_PROJECT_NAME} PRIVATE "-ftemplate-backtrace-limit=0")
+
 install(TARGETS ${CURRENT_PROJECT_NAME} RUNTIME DESTINATION bin)
