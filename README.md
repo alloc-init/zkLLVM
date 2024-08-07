@@ -1,13 +1,6 @@
 # zkLLVM Circuit Compiler
 
-[![build-linux](https://github.com/NilFoundation/zkllvm/actions/workflows/build_linux.yml/badge.svg?branch=master)](
-https://github.com/NilFoundation/zkllvm/actions/workflows/build_linux.yml)
-[![build-macos](https://github.com/NilFoundation/zkllvm/actions/workflows/build_macos.yml/badge.svg?branch=master)](
-https://github.com/NilFoundation/zkllvm/actions/workflows/build_macos.yml)
-
-[![Discord](https://img.shields.io/discord/969303013749579846.svg?logo=discord&style=flat-square)](https://discord.gg/KmTAEjbmM3)
-[![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=flat-square&logo=telegram&logoColor=dark)](https://t.me/nilfoundation)
-[![Twitter](https://img.shields.io/twitter/follow/nil_foundation)](https://twitter.com/nil_foundation)
+[![Twitter](https://img.shields.io/twitter/follow/alloc_init_)](https://twitter.com/alloc_init_)
 
 zkLLVM is a compiler from high-level programming languages into an input for provable computations protocols.
 It can be used to generate input for any arbitrary zero-knowledge proof system or protocol, which accepts
@@ -54,7 +47,7 @@ sudo apt install build-essential libssl-dev cmake clang-12 git curl pkg-config
 Clone the repository and all the submodules via:
 
 ```
-git clone --recurse-submodules https://github.com/NilFoundation/zkLLVM.git
+git clone --recurse-submodules https://github.com/alloc-init/zkLLVM.git
 cd zkLLVM
 ```
 
@@ -168,7 +161,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://cdn.jsdelivr.net/gh/NilFoundation/z
 You can also download the `rslang-installer.py` first and then run it:
 
 ```bash
-curl --proto '=https' --tlsv1.2 -O https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py
+curl --proto '=https' --tlsv1.2 -O https://cdn.jsdelivr.net/gh/alloc-init/zkllvm@master/rslang-installer.py
 python rslang-installer.py --channel nightly
 ```
 
@@ -184,7 +177,7 @@ To install `rslang` without `rustup` use `--no-rustup` argument.
 You will need to pass `PATH` to desired installation directory.
 
 ```bash
-curl --proto '=https' --tlsv1.2 -O https://cdn.jsdelivr.net/gh/NilFoundation/zkllvm@master/rslang-installer.py
+curl --proto '=https' --tlsv1.2 -O https://cdn.jsdelivr.net/gh/alloc-init/zkllvm@master/rslang-installer.py
 python rslang-installer.py --no-rustup --prefix PATH
 ```
 
@@ -195,15 +188,15 @@ zkLLVM's workflow is as follows:
 1. **Write Circuit :** Users willing to prove some statement are supposed to implement an application in a language compatible with some frontend (C++ for now). This code will be compiled with a modified version of the `clang` compiler, which will output intermediate representation of the circuit.
    ![compile](./docs/assets/compile.png)
    > For the most performant cryptography circuits (e.g. hashes, signatures, VDFs, proof system verifications, etc.)
-   > we recommend using [=nil; Foundation's Crypto3 library](https://github.com/nilfoundation/crypto3.git).
+   > we recommend using [[[alloc] init]'s Crypto3 library](https://github.com/alloc-init/crypto3.git).
 
    ![compile](./docs/assets/transpile.png)
   The circuit developer will be generating the in-EVM applications for the circuits they have created. This will enable on-chain verification of the proof.
   The in-EVM logic consists of gate representations of the circuit. These contracts work in conjunction with the Placeholder proof validation in-EVM logic.
-  The process to transpile the circuit into smart contracts is handled by the [lorem-ipsum](https://github.com/NilFoundation/lorem-ipsum-cli)
+  The process to transpile the circuit into smart contracts is handled by the [lorem-ipsum](https://github.com/alloc-init/lorem-ipsum-cli)
   project.
 
-2. **Publish Circuit/Generate Proof**: zkLLVM is tightly coupled with [=nil; Foundation's Proof Market](https://proof.market.nil.foundation). Users willing to generate a proof for the circuit, will be matched with counter-parties based on price and other conditions.
+2. **Publish Circuit/Generate Proof**: zkLLVM is tightly coupled with the [Proof Market](https://proof.market). Users willing to generate a proof for the circuit, will be matched with counter-parties based on price and other conditions.
    The circuit generated above needs to be published to proof market to enable this.
    ![publish](./docs/assets/publish.png)
 
@@ -212,14 +205,14 @@ To generate a proof it is required to pass the following to the proof generator:
     * Circuit : Arithmetization of the circuit.
     * Inputs: Public (and private) inputs to circuit part of the proof request.
 
-This generates the binary proof file. This flow is handled by the [proof market toolchain](https://github.com/NilFoundation/proof-market-toolchain) repository & documented [here](https://docs.nil.foundation/proof-market/market/user-guides/proof-producer).
+This generates the binary proof file. This flow is handled by the [proof market toolchain](https://github.com/alloc-init/proof-market-toolchain) repository & documented [here](https://docs.allocin.it/proof-market/market/user-guides/proof-producer).
 
 Users can generate & inspect intermediate artifacts such as execution trace by running the `assigner` process. See examples below.
 
 3. **Verify Proof**: Proof can be retrieved from the proof market and verified on chain. Users can verify proof in these modes :
    1. Offline : Tooling to support validation of off-chain proof will be added in the future.
-   2. On-chain : This flow of generating smart contracts is handled by the [lorem-ipsum](https://github.com/NilFoundation/lorem-ipsum-cli) project. A high level flow is described in the guides
-   for [circuit developer](https://docs.nil.foundation/zkllvm/manual/getting-started/circuit-generation) & [proof verifier](https://docs.nil.foundation/zkllvm/manual/getting-started/proof-verifier)
+   2. On-chain : This flow of generating smart contracts is handled by the [lorem-ipsum](https://github.com/alloc-init/lorem-ipsum-cli) project. A high level flow is described in the guides
+   for [circuit developer](https://docs.allocin.it/zkllvm/manual/getting-started/circuit-generation) & [proof verifier](https://docs.allocin.it/zkllvm/manual/getting-started/proof-verifier)
    described above.
     ![verify](./docs/assets/dapp_verify.png)
 
