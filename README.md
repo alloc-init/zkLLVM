@@ -21,8 +21,9 @@ zkLLVM extends:
 
 Languages currently supported are:
 1. C/C++ (all the standards Clang 15 supports).
-2. Rust (https://github.com/NilFoundation/zkllvm-rslang).
-3. Your language suggestions are warmly welcomed in Telegram (https://t.me/nilfoundation) or on Discord (https://discord.gg/KmTAEjbmM3).
+2. Rust (https://github.com/alloc-init/zkllvm-rslang).
+3. ONNX (https://github.com/TaceoLabs/zkllvm-mlir-assigner)
+
 
 ## Building
 
