@@ -16,7 +16,7 @@ enables developers to write code in native language instead of DSL's specific to
 
 zkLLVM extends:
 1. `clang/clang++` : Compiles the program into general intermediate representation byte-code from C/C++.
-2. `rustc`: Compiles the program into general intermediate representation byte-code from Rust. (https://github.com/NilFoundation/zkllvm-rslang)
+2. `rustc`: Compiles the program into general intermediate representation byte-code from Rust. (https://github.com/alloc-init/zkllvm-rslang)
 3. `assigner` Creates the circuit execution trace (a.k.a. assignment table) and produces data, needed by the prover to produce proof.
 
 Languages currently supported are:
